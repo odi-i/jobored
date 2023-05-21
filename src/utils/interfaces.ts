@@ -3,14 +3,21 @@ import { Dispatch } from 'react';
 export interface filtersProps {
   setForm: Dispatch<object>;
 }
-
+export interface searchBarProps {
+  setSearch: Dispatch<object>;
+}
 export interface VacanciesProps {
-  objects: ObjectProps;
-  page: number;
-  count: number;
+  filterValue: object;
+  searchValue: object;
+}
+
+export interface VacancyResponseProps {
+  objects: ObjectProps[];
+  total: number;
 }
 
 export interface ObjectProps {
+  id: number;
   profession: string;
   firm_name: string;
   town: {

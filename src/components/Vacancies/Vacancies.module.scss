@@ -1,0 +1,10 @@
+.wrapper {
+   display: flex;
+   flex-direction: column;
+   gap: 16px;
+
+   .pagination {
+      align-self: center;
+      margin: 24px 0 44px;
+   }
+}

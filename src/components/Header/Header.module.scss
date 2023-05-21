@@ -1,7 +1,7 @@
 header {
    width: 100%;
    height: 84px;
-   background: var(--white);
+   background: v.$white;
 }
 
 .wrapper {
@@ -18,13 +18,13 @@ header {
       align-items: center;
 
       .text {
-         font-family: 'Poppins';
+         font-family: "Poppins";
          font-style: normal;
          font-weight: 600;
          font-size: 24px;
          line-height: 36px;
          letter-spacing: -0.02em;
-         color: var(--black);
+         color: v.$black;
       }
    }
 
@@ -32,26 +32,25 @@ header {
       display: flex;
       gap: 60px;
       align-items: center;
-      
+
       .item {
          text-decoration: none;
-         font-family: 'Inter';
+         font-family: "Inter";
          font-style: normal;
          font-weight: 500;
          font-size: 16px;
          line-height: 20px;
-         color: var(--black);
+         color: v.$black;
       }
 
       .active {
          text-decoration: none;
-         font-family: 'Inter';
+         font-family: "Inter";
          font-style: normal;
          font-size: 16px;
          line-height: 20px;
          font-weight: 500;
-         color: var(--blue-500);
+         color: v.$blue-500;
       }
    }
 }
-

@@ -1,30 +1,21 @@
-import { useEffect, useState } from 'react';
-import Filters from '../../components/Filters/Filters';
 import styles from './Search.module.scss';
-import axios from 'axios';
-import { API_PATH, DATA } from '../../utils/constValues';
+import { useState } from 'react';
+import Filters from '../../components/Filters/Filters';
+import SearchBar from '../../components/SearchBar/SearchBar';
+import Vacancies from '../../components/Vacancies/Vacancies';
 
 export default function Search() {
-  const [form, setForm] = useState({});
-  console.log(form);
-
-  useEffect(() => {
-    axios
-      .get(API_PATH.authorization, {
-        headers: {
-          'Content-Type': 'application/json',
-          'x-secret-key': DATA.secretKey,
-          'X-Api-App-Id': DATA.appId,
-        },
-      })
-      .then((res) => localStorage.setItem(DATA.locale, res.data.access_token))
-      .catch((err) => console.log(err));
-  }, []);
+  const [filters, setFilters] = useState({});
+  const [search, setSearch] = useState({});
 
   return (
     <>
       <div className={styles.wrapper}>
-        <Filters setForm={setForm} />
+        <Filters setForm={setFilters} />
+        <div className={styles.main}>
+          <SearchBar setSearch={setSearch} />
+          <Vacancies filterValue={filters} searchValue={search} />
+        </div>
       </div>
     </>
   );

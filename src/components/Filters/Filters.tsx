@@ -1,5 +1,5 @@
 import styles from './Filters.module.scss';
-import resetImg from '../../assets/reset_svg.svg';
+import resetImg from '../../assets/reset.svg';
 import { Button, NumberInput, Select } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { IconChevronDown, IconChevronUp } from '@tabler/icons-react';
@@ -109,22 +109,7 @@ export default function Filters(props: filtersProps) {
             size="md"
           />
         </div>
-        <Button
-          type="submit"
-          styles={{
-            label: {
-              color: '#FFFFFF',
-              fontWeight: 'normal',
-              fontSize: '14px',
-              lineHeight: '21px',
-            },
-            root: {
-              backgroundColor: '#5E96FC',
-            },
-          }}
-          radius="md"
-          size="md"
-        >
+        <Button className={styles.button} type="submit" radius="md" size="md">
           Применить
         </Button>
       </form>
