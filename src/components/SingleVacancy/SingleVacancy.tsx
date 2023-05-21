@@ -4,17 +4,35 @@ import dot from '../../assets/dot.svg';
 import place from '../../assets/place.svg';
 import star from '../../assets/star.svg';
 import activeStar from '../../assets/activeStar.svg';
-import { Dispatch } from 'react';
+import { Dispatch, useEffect, useState } from 'react';
+import { DATA } from '../../utils/constValues';
 
-export default function SingleVacancy({
-  objects,
-  favorites,
-  setFavorites,
-}: {
-  objects: ObjectProps;
-  favorites: number[];
-  setFavorites: Dispatch<React.SetStateAction<number[]>>;
-}) {
+export default function SingleVacancy({ objects }: { objects: ObjectProps }) {
+  const [favorites, setFavorites] = useState<number[]>(
+    localStorage.getItem(DATA.localeFavor) == null
+      ? []
+      : JSON.parse(localStorage.getItem(DATA.localeFavor) || '[]')
+  );
+
+  const removeFavor = () => {
+    //  window.dispatchEvent(new Event('custom-storage-event-name'));
+
+    const arr = JSON.parse(
+      localStorage.getItem(DATA.localeFavor) || '[]'
+    ).filter((item: number) => item !== objects.id);
+    setFavorites(arr);
+    localStorage.setItem(DATA.localeFavor, JSON.stringify(arr));
+  };
+
+  const addFavor = () => {
+    const arr = [
+      ...JSON.parse(localStorage.getItem(DATA.localeFavor) || '[]'),
+      objects.id,
+    ];
+    setFavorites(arr);
+    localStorage.setItem(DATA.localeFavor, JSON.stringify(arr));
+  };
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.main}>
@@ -42,15 +60,8 @@ export default function SingleVacancy({
       <img
         className={styles.star}
         src={favorites.includes(objects.id) ? activeStar : star}
-        onClick={
-          favorites.includes(objects.id)
-            ? () =>
-                setFavorites(favorites.filter((item) => item !== objects.id))
-            : () => setFavorites([...favorites, objects.id])
-        }
+        onClick={favorites.includes(objects.id) ? removeFavor : addFavor}
       />
     </div>
   );
 }
-
-// setFavorites((v: number[]) => v.filter(v > 0))
