@@ -25,6 +25,7 @@
       .button {
          display: flex;
          gap: 4px;
+         cursor: pointer;
 
          .text {
             font-weight: 500;
@@ -47,8 +48,23 @@
          color: v.$black;
       }
 
-      .input::placeholder {
-         color: red;
+      :global(.mantine-Select-root).input {
+         :global(.mantine-Select-rightSection) {
+            pointer-events: none;
+         }
+
+         :global(.mantine-Input-input) {
+            font-size: 14px;
+            line-height: 20px;
+            padding-left: 12px;
+            padding-right: 32px;
+         }
+
+         :global(.mantine-Select-item) {
+            font-size: 14px;
+            line-height: 20px;
+            color: #232134;
+         }
       }
    }
 
@@ -62,6 +78,25 @@
          font-size: 16px;
          line-height: 19px;
          color: v.$black;
+      }
+
+      :global(.mantine-NumberInput-input) {
+         font-size: 14px;
+         line-height: 20px;
+         padding-left: 12px;
+      }
+
+      :global(.mantine-NumberInput-control) {
+         border: none;
+         padding-right: 5px;
+      }
+
+      :global(.mantine-NumberInput-controlDown) {
+         bottom: 4px;
+      }
+
+      :global(.mantine-NumberInput-controlUp) {
+         top: 4px;
       }
    }
 

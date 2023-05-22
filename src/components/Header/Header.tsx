@@ -7,10 +7,10 @@ export default function Header() {
     <>
       <header>
         <div className={styles.wrapper}>
-          <div className={styles.logo}>
+          <NavLink to={'/'} className={styles.logo}>
             <img src={logo} />
             <h1 className={styles.text}>Jobored</h1>
-          </div>
+          </NavLink>
           <div className={styles.menu}>
             <NavLink
               to="/"
@@ -19,11 +19,17 @@ export default function Header() {
                   ? ` ${styles['item']} ${styles['active']}`
                   : styles['item']
               }
-              //   className={styles.item}
             >
               Поиск Вакансий
             </NavLink>
-            <NavLink to="/favorites" className={styles.item}>
+            <NavLink
+              to="/favorites"
+              className={({ isActive }) =>
+                isActive
+                  ? ` ${styles['item']} ${styles['active']}`
+                  : styles['item']
+              }
+            >
               Избранное
             </NavLink>
           </div>

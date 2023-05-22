@@ -4,8 +4,9 @@ import dot from '../../assets/dot.svg';
 import place from '../../assets/place.svg';
 import star from '../../assets/star.svg';
 import activeStar from '../../assets/activeStar.svg';
-import { Dispatch, useEffect, useState } from 'react';
+import { useState } from 'react';
 import { DATA } from '../../utils/constValues';
+import { Link } from 'react-router-dom';
 
 export default function SingleVacancy({ objects }: { objects: ObjectProps }) {
   const [favorites, setFavorites] = useState<number[]>(
@@ -15,7 +16,7 @@ export default function SingleVacancy({ objects }: { objects: ObjectProps }) {
   );
 
   const removeFavor = () => {
-    //  window.dispatchEvent(new Event('custom-storage-event-name'));
+    window.dispatchEvent(new Event('custom-storage-event-name'));
 
     const arr = JSON.parse(
       localStorage.getItem(DATA.localeFavor) || '[]'
@@ -25,6 +26,8 @@ export default function SingleVacancy({ objects }: { objects: ObjectProps }) {
   };
 
   const addFavor = () => {
+    window.dispatchEvent(new Event('custom-storage-event-name'));
+
     const arr = [
       ...JSON.parse(localStorage.getItem(DATA.localeFavor) || '[]'),
       objects.id,
@@ -33,16 +36,26 @@ export default function SingleVacancy({ objects }: { objects: ObjectProps }) {
     localStorage.setItem(DATA.localeFavor, JSON.stringify(arr));
   };
 
+  const displayMoney = () => {
+    if (objects.payment_to == 0 && objects.payment_from == 0)
+      return 'з/п не указана';
+    else if (objects.payment_to == objects.payment_from) {
+      return `з/п ${objects.payment_to} ${objects.currency}`;
+    } else if (objects.payment_from != 0 && objects.payment_to == 0) {
+      return `з/п от ${objects.payment_from} ${objects.currency}`;
+    } else if (objects.payment_from < objects.payment_to) {
+      return `з/п ${objects.payment_from} - ${objects.payment_to} ${objects.currency}`;
+    }
+  };
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.main}>
-        <div className={styles.profession}>{objects.profession}</div>
+        <Link to={`/vacancy/${objects.id}`} className={styles.profession}>
+          {objects.profession}
+        </Link>
         <div className={styles.conditions}>
-          <div className={styles.money}>
-            {!(objects.payment_to === 0)
-              ? `з/п от ${objects.payment_to} ${objects.currency}`
-              : 'з/п не указана'}
-          </div>
+          <div className={styles.money}>{displayMoney()}</div>
           <img src={dot} />
           <div className={styles.type_of_work}>
             {objects.type_of_work?.title == undefined

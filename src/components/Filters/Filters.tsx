@@ -3,13 +3,19 @@ import resetImg from '../../assets/reset.svg';
 import { Button, NumberInput, Select } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { IconChevronDown, IconChevronUp } from '@tabler/icons-react';
-import { useState } from 'react';
-import { jobArr } from '../../utils/constValues';
-import { filtersProps } from '../../utils/interfaces';
+import { useEffect, useState } from 'react';
+import { API_PATH, DATA } from '../../utils/constValues';
+import {
+  CataloguesDataProps,
+  FiltersProps,
+  SelectDataProps,
+} from '../../utils/interfaces';
+import axios from 'axios';
 
-export default function Filters(props: filtersProps) {
+export default function Filters(props: FiltersProps) {
   const [isOpen, setIsOpen] = useState(false);
   const openFunct = (bool: boolean): void => setIsOpen(bool);
+  const [jobArr, setJobArr] = useState<SelectDataProps[]>([]);
 
   const form = useForm({
     initialValues: {
@@ -19,15 +25,45 @@ export default function Filters(props: filtersProps) {
     },
   });
 
+  const addJobArr = (res: CataloguesDataProps[]) => {
+    let arr: SelectDataProps[] = [];
+    res.forEach((item) => {
+      arr = [...arr, { label: item.title_rus, value: item.key.toString() }];
+    });
+    setJobArr(arr);
+  };
+
+  useEffect(() => {
+    axios
+      .get(API_PATH.catalogues, {
+        headers: {
+          'Content-Type': 'application/json',
+          'x-secret-key': DATA.secretKey,
+          'X-Api-App-Id': DATA.appId,
+          Authorization: DATA.auth,
+        },
+      })
+      .then((res) => res.data)
+      .then((res) => addJobArr(res))
+      .catch((err) => console.log(err));
+  }, []);
+
+  useEffect(() => {
+    form.reset();
+  }, [props.isReset]);
+
   return (
     <>
       <form
-        onSubmit={form.onSubmit((values) => props.setForm(values))}
         className={styles.wrapper}
+        onSubmit={form.onSubmit((values) => props.setForm(values))}
       >
         <div className={styles.topic}>
           <div className={styles.name}>Фильтры</div>
-          <div className={styles.button}>
+          <div
+            className={styles.button}
+            onClick={() => props.setIsReset((v) => !v)}
+          >
             <div className={styles.text}>Сбросить все</div>
             <img src={resetImg} className={styles.img} />
           </div>
@@ -49,15 +85,6 @@ export default function Filters(props: filtersProps) {
             radius="md"
             onDropdownOpen={() => openFunct(true)}
             onDropdownClose={() => openFunct(false)}
-            styles={{
-              rightSection: { pointerEvents: 'none' },
-              input: {
-                fontSize: '14px',
-                lineHeight: '20px',
-                fontFamily: 'Inter',
-                paddingLeft: '12px',
-              },
-            }}
             rightSectionWidth={40}
             data={jobArr}
           />
@@ -67,21 +94,6 @@ export default function Filters(props: filtersProps) {
           <NumberInput
             placeholder="От"
             {...form.getInputProps('from')}
-            styles={{
-              control: {
-                border: 'none',
-                paddingRight: '5px',
-                borderColor: 'red',
-              },
-              controlUp: { top: '4px' },
-              controlDown: { bottom: '4px' },
-              input: {
-                fontSize: '14px',
-                lineHeight: '20px',
-                fontFamily: 'Inter',
-                paddingLeft: '12px',
-              },
-            }}
             min={0}
             radius="md"
             size="md"
@@ -89,21 +101,6 @@ export default function Filters(props: filtersProps) {
           <NumberInput
             placeholder="До"
             {...form.getInputProps('to')}
-            styles={{
-              control: {
-                border: 'none',
-                paddingRight: '5px',
-                borderColor: 'red',
-              },
-              controlUp: { top: '4px' },
-              controlDown: { bottom: '4px' },
-              input: {
-                fontSize: '14px',
-                lineHeight: '20px',
-                fontFamily: 'Inter',
-                paddingLeft: '12px',
-              },
-            }}
             min={0}
             radius="md"
             size="md"

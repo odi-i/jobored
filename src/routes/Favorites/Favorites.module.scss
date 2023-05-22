@@ -1,0 +1,18 @@
+.wrapper {
+   display: flex;
+   flex-direction: column;
+   width: 773px;
+   margin: 0 auto;
+   padding: 40px 0 44px;
+
+   .cards {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+   }
+
+   .pagination {
+      align-self: center;
+      margin: 104px 0 0;
+   }
+}

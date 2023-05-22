@@ -1,14 +1,29 @@
 import { Dispatch } from 'react';
 
-export interface filtersProps {
-  setForm: Dispatch<object>;
+export interface FiltersProps {
+  setForm: Dispatch<{ industry: string; from: string; to: string }>;
+  isReset: boolean;
+  setIsReset: React.Dispatch<React.SetStateAction<boolean>>;
 }
-export interface searchBarProps {
-  setSearch: Dispatch<object>;
+
+export interface SelectDataProps {
+  value: string;
+  label: string;
 }
+
+export interface SearchBarProps {
+  setSearch: Dispatch<string>;
+  isReset: boolean;
+}
+
+export interface CataloguesDataProps {
+  title_rus: string;
+  key: number;
+}
+
 export interface VacanciesProps {
-  filterValue: object;
-  searchValue: object;
+  filterValue: { industry: string; from: string; to: string };
+  searchValue: string;
 }
 
 export interface VacancyResponseProps {
@@ -29,4 +44,5 @@ export interface ObjectProps {
   payment_to: number;
   payment_from: number;
   currency: string;
+  vacancyRichText: string | TrustedHTML;
 }
