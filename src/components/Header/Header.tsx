@@ -1,5 +1,5 @@
 import styles from './Header.module.scss';
-import logo from '../../assets/Unionlogo.svg';
+import logo from '../../assets/unionLogo.svg';
 import { NavLink } from 'react-router-dom';
 
 export default function Header() {
