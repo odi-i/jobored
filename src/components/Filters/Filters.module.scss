@@ -32,6 +32,14 @@
             font-size: 14px;
             line-height: 20px;
             color: v.$grey-500;
+
+            &_hover {
+               color: v.$blue-400;
+            }
+
+            &_active {
+               color: v.$blue-500;
+            }
          }
       }
    }
@@ -51,19 +59,45 @@
       :global(.mantine-Select-root).input {
          :global(.mantine-Select-rightSection) {
             pointer-events: none;
+            margin-right: 4px;
          }
 
-         :global(.mantine-Input-input) {
+         :global(.mantine-Select-input) {
             font-size: 14px;
             line-height: 20px;
+            color: v.$black;
             padding-left: 12px;
-            padding-right: 32px;
+            padding-right: 37px;
+
+            &::placeholder {
+               font-size: 14px;
+               line-height: 20px;
+               color: v.$grey-500;
+            }
+
+            &:hover {
+               border-color: v.$blue-500;
+            }
+
+            &:focus {
+               border-color: v.$blue-500;
+            }
          }
 
          :global(.mantine-Select-item) {
             font-size: 14px;
             line-height: 20px;
-            color: #232134;
+            color: v.$black;
+            padding-left: 12px;
+
+            &:hover {
+               background-color: v.$blue-100;
+            }
+
+            &[data-selected] {
+               background-color: v.$blue-500;
+               color: v.$white;
+            }
          }
       }
    }
@@ -84,11 +118,26 @@
          font-size: 14px;
          line-height: 20px;
          padding-left: 12px;
+
+         &::placeholder {
+            font-size: 14px;
+            line-height: 20px;
+            color: v.$grey-500;
+         }
+
+         &:hover {
+            border-color: v.$blue-500;
+         }
+
+         &:focus {
+            border-color: v.$blue-500;
+         }
       }
 
       :global(.mantine-NumberInput-control) {
          border: none;
          padding-right: 5px;
+         color: v.$grey-500;
       }
 
       :global(.mantine-NumberInput-controlDown) {
@@ -108,5 +157,13 @@
       font-size: 14px;
       line-height: 21px;
       background: v.$blue-500;
+
+      &:hover {
+         background-color: v.$blue-400;
+      }
+
+      &:active {
+         background-color: v.$blue-600;
+      }
    }
 }

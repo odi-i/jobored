@@ -3,9 +3,15 @@
    flex-direction: column;
    gap: 16px;
 
-   .pagination {
+   :global(.mantine-Group-root).pagination {
       align-self: center;
       margin: 24px 0 44px;
+
+      :global(.mantine-Pagination-control) {
+         &[data-active] {
+            background-color: v.$blue-500;
+         }
+      }
    }
 
    .notFound {

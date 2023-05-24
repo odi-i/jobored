@@ -1,19 +1,24 @@
 import styles from './Filters.module.scss';
 import resetImg from '../../assets/reset.svg';
+import resetImgHover from '../../assets/resetHover.svg';
+import resetImgActive from '../../assets/resetActive.svg';
 import { Button, NumberInput, Select } from '@mantine/core';
 import { useForm } from '@mantine/form';
-import { IconChevronDown, IconChevronUp } from '@tabler/icons-react';
 import { useEffect, useState } from 'react';
-import { API_PATH, DATA } from '../../utils/constValues';
+import { API_PATH } from '../../utils/constValues';
 import {
   CataloguesDataProps,
   FiltersProps,
   SelectDataProps,
 } from '../../utils/interfaces';
-import axios from 'axios';
+import $api from '../../utils/http/axios';
+import dropDown from '../../assets/dropDown.svg';
+import dropDownActive from '../../assets/dropDownActive.svg';
 
 export default function Filters(props: FiltersProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const [isHover, setIsHover] = useState(false);
+  const [isActive, setIsActive] = useState(false);
   const openFunct = (bool: boolean): void => setIsOpen(bool);
   const [jobArr, setJobArr] = useState<SelectDataProps[]>([]);
 
@@ -34,15 +39,8 @@ export default function Filters(props: FiltersProps) {
   };
 
   useEffect(() => {
-    axios
-      .get(API_PATH.catalogues, {
-        headers: {
-          'Content-Type': 'application/json',
-          'x-secret-key': DATA.secretKey,
-          'X-Api-App-Id': DATA.appId,
-          Authorization: DATA.auth,
-        },
-      })
+    $api
+      .get(API_PATH.catalogues)
       .then((res) => res.data)
       .then((res) => addJobArr(res))
       .catch((err) => console.log(err));
@@ -51,6 +49,27 @@ export default function Filters(props: FiltersProps) {
   useEffect(() => {
     form.reset();
   }, [props.isReset]);
+
+  const changeImg = () => {
+    if (isHover) return resetImgHover;
+    if (isActive) return resetImgActive;
+    return resetImg;
+  };
+
+  const handleButton = () => {
+    props.setIsReset((v) => !v);
+    setIsHover(false);
+    setIsActive(true);
+    setTimeout(() => {
+      setIsActive(false);
+    }, 500);
+  };
+
+  const handleText = () => {
+    if (isHover) return [styles.text, styles.text_hover].join(' ');
+    if (isActive) return [styles.text, styles.text_active].join(' ');
+    return styles.text;
+  };
 
   return (
     <>
@@ -62,30 +81,32 @@ export default function Filters(props: FiltersProps) {
           <div className={styles.name}>Фильтры</div>
           <div
             className={styles.button}
-            onClick={() => props.setIsReset((v) => !v)}
+            onMouseEnter={() => setIsHover(true)}
+            onMouseLeave={() => setIsHover(false)}
+            onClick={handleButton}
           >
-            <div className={styles.text}>Сбросить все</div>
-            <img src={resetImg} className={styles.img} />
+            <div className={handleText()}>Сбросить все</div>
+            <img src={changeImg()} className={styles.img} />
           </div>
         </div>
         <div className={styles.job}>
           <div className={styles.text}>Отрасль</div>
           <Select
             className={styles.input}
+            data-elem="industry-select"
             placeholder="Выберете отрасль"
             {...form.getInputProps('industry')}
             rightSection={
               isOpen == false ? (
-                <IconChevronDown color={'#ACADB9'} size="20px" />
+                <img src={dropDown} />
               ) : (
-                <IconChevronUp color={'#ACADB9'} size="20px" />
+                <img src={dropDownActive} />
               )
             }
             size="md"
             radius="md"
             onDropdownOpen={() => openFunct(true)}
             onDropdownClose={() => openFunct(false)}
-            rightSectionWidth={40}
             data={jobArr}
           />
         </div>
@@ -93,6 +114,7 @@ export default function Filters(props: FiltersProps) {
           <div className={styles.text}>Оклад</div>
           <NumberInput
             placeholder="От"
+            data-elem="salary-from-input"
             {...form.getInputProps('from')}
             min={0}
             radius="md"
@@ -100,13 +122,20 @@ export default function Filters(props: FiltersProps) {
           />
           <NumberInput
             placeholder="До"
+            data-elem="salary-to-input"
             {...form.getInputProps('to')}
             min={0}
             radius="md"
             size="md"
           />
         </div>
-        <Button className={styles.button} type="submit" radius="md" size="md">
+        <Button
+          data-elem="search-button"
+          className={styles.button}
+          type="submit"
+          radius="md"
+          size="md"
+        >
           Применить
         </Button>
       </form>

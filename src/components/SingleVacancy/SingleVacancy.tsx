@@ -3,12 +3,14 @@ import { ObjectProps } from '../../utils/interfaces';
 import dot from '../../assets/dot.svg';
 import place from '../../assets/place.svg';
 import star from '../../assets/star.svg';
+import hoverStar from '../../assets/hoverStar.svg';
 import activeStar from '../../assets/activeStar.svg';
 import { useState } from 'react';
 import { DATA } from '../../utils/constValues';
 import { Link } from 'react-router-dom';
 
 export default function SingleVacancy({ objects }: { objects: ObjectProps }) {
+  const [isHover, setIsHover] = useState(false);
   const [favorites, setFavorites] = useState<number[]>(
     localStorage.getItem(DATA.localeFavor) == null
       ? []
@@ -48,8 +50,21 @@ export default function SingleVacancy({ objects }: { objects: ObjectProps }) {
     }
   };
 
+  const handleStar = () => {
+    favorites.includes(objects.id) ? removeFavor() : addFavor();
+    setIsHover(false);
+  };
+
+  const changeImg = () => {
+    if (favorites.includes(objects.id)) {
+      return activeStar;
+    }
+    if (isHover) return hoverStar;
+    return star;
+  };
+
   return (
-    <div className={styles.wrapper}>
+    <div className={styles.wrapper} data-elem={`vacancy-${objects.id}`}>
       <div className={styles.main}>
         <Link to={`/vacancy/${objects.id}`} className={styles.profession}>
           {objects.profession}
@@ -71,9 +86,12 @@ export default function SingleVacancy({ objects }: { objects: ObjectProps }) {
         </div>
       </div>
       <img
+        data-elem={`vacancy-${objects.id}-shortlist-button`}
+        onMouseEnter={() => setIsHover(true)}
+        onMouseLeave={() => setIsHover(false)}
         className={styles.star}
-        src={favorites.includes(objects.id) ? activeStar : star}
-        onClick={favorites.includes(objects.id) ? removeFavor : addFavor}
+        src={changeImg()}
+        onClick={handleStar}
       />
     </div>
   );

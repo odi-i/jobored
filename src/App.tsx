@@ -7,35 +7,9 @@ import { API_PATH, DATA } from './utils/constValues';
 import FullVacancy from './components/FullVacancy/FullVacancy';
 import { SkeletonTheme } from 'react-loading-skeleton';
 import Favorites from './routes/Favorites/Favorites';
+import NotFound from './routes/NotFound/NotFound';
 
 function App() {
-  useEffect(() => {
-    if (
-      JSON.parse(localStorage.getItem(DATA.localeAuth) || '{}').ttl <
-        Date.now() / 1000 ||
-      !localStorage.getItem(DATA.localeAuth)
-    ) {
-      axios
-        .get(API_PATH.authorization, {
-          headers: {
-            'Content-Type': 'application/json',
-            'x-secret-key': DATA.secretKey,
-            'X-Api-App-Id': DATA.appId,
-          },
-        })
-        .then((res) =>
-          localStorage.setItem(
-            DATA.localeAuth,
-            JSON.stringify({
-              access_token: res.data.access_token,
-              ttl: res.data.ttl,
-            })
-          )
-        )
-        .catch((err) => console.log(err));
-    }
-  }, []);
-
   return (
     <>
       <SkeletonTheme>
@@ -44,6 +18,7 @@ function App() {
             <Route path="/" Component={Search}></Route>
             <Route path="/vacancy/:id" Component={FullVacancy}></Route>
             <Route path="/favorites" Component={Favorites}></Route>
+            <Route path="*" Component={NotFound}></Route>
           </Route>
         </Routes>
       </SkeletonTheme>

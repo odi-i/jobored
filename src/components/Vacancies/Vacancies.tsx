@@ -1,12 +1,12 @@
 import styles from './Vacancies.module.scss';
 import { useEffect, useState } from 'react';
 import { VacanciesProps, VacancyResponseProps } from '../../utils/interfaces';
-import { API_PATH, DATA } from '../../utils/constValues';
-import axios from 'axios';
+import { API_PATH } from '../../utils/constValues';
 import SingleVacancy from '../SingleVacancy/SingleVacancy';
 import { Pagination } from '@mantine/core';
 import VacancySkeleton from '../Skeleton/VacancySkeleton/VacancySkeleton';
 import notFound from '../../assets/notFound.svg';
+import $api from '../../utils/http/axios';
 
 export default function Vacancies(props: VacanciesProps) {
   const [activePage, setPage] = useState(1);
@@ -19,7 +19,7 @@ export default function Vacancies(props: VacanciesProps) {
 
   useEffect(() => {
     setIsRerender(true);
-    axios
+    $api
       .get(
         API_PATH.vacancies +
           `?page=${activePage - 1}&count=4&published=1&keyword=${
@@ -28,15 +28,11 @@ export default function Vacancies(props: VacanciesProps) {
             props.filterValue.to
           }&no_agreement=${
             props.filterValue.from == '' && props.filterValue.to == '' ? 0 : 1
-          }&catalogues=${Number(props.filterValue.industry)}`,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            'x-secret-key': DATA.secretKey,
-            'X-Api-App-Id': DATA.appId,
-            Authorization: DATA.auth,
-          },
-        }
+          }${
+            +props.filterValue.industry == 0
+              ? ``
+              : `&catalogues=${Number(props.filterValue.industry)}`
+          }`
       )
       .then((res) => setData(res.data))
       .then(() => setIsRerender(false))

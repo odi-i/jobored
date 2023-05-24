@@ -20,6 +20,7 @@ export default function SearchBar(props: SearchBarProps) {
     <form onSubmit={form.onSubmit((values) => props.setSearch(values.text))}>
       <Input
         className={styles.input}
+        data-elem="search-input"
         icon={<img className={styles.img} src={searchIcon} />}
         placeholder="Введите название вакансии"
         radius="md"
@@ -27,7 +28,11 @@ export default function SearchBar(props: SearchBarProps) {
         iconWidth={'40px'}
         {...form.getInputProps('text')}
         rightSection={
-          <Button className={styles.button} type="submit">
+          <Button
+            data-elem="search-button"
+            className={styles.button}
+            type="submit"
+          >
             Поиск
           </Button>
         }

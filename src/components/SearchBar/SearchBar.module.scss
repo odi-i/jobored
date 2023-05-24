@@ -18,6 +18,18 @@
          padding-left: 35px;
       }
 
+      color: v.$black;
+      padding-left: 12px;
+      padding-right: 37px;
+
+      &:hover {
+         border-color: v.$blue-500;
+      }
+
+      &:focus {
+         border-color: v.$blue-500;
+      }
+
       &::placeholder {
          font-weight: 400;
          font-size: 14px;
@@ -37,4 +49,12 @@
    font-size: 14px;
    line-height: 21px;
    color: v.$white;
+
+   &:hover {
+      background-color: v.$blue-400;
+   }
+
+   &:active {
+      background-color: v.$blue-600;
+   }
 }

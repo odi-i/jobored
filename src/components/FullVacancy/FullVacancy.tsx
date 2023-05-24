@@ -1,27 +1,21 @@
 import styles from './FullVacancy.module.scss';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
 import { API_PATH, DATA } from '../../utils/constValues';
 import { ObjectProps } from '../../utils/interfaces';
 import SingleVacancy from '../SingleVacancy/SingleVacancy';
 import VacancySkeleton from '../Skeleton/VacancySkeleton/VacancySkeleton';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
+import $api from '../../utils/http/axios';
 
 export default function FullVacancy() {
   const { id } = useParams();
   const [data, setData] = useState<ObjectProps>();
 
   useEffect(() => {
-    axios
-      .get(API_PATH.vacancies + `${id}/`, {
-        headers: {
-          'Content-Type': 'application/json',
-          'x-secret-key': DATA.secretKey,
-          'X-Api-App-Id': DATA.appId,
-        },
-      })
+    $api
+      .get(API_PATH.vacancies + `${id}/`)
       .then((res) => setData(res.data))
       .catch((err) => console.log(err));
   }, []);
