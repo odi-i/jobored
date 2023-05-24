@@ -11,11 +11,14 @@ import $api from '../../utils/http/axios';
 export default function Vacancies(props: VacanciesProps) {
   const [activePage, setPage] = useState(1);
   const [isRerender, setIsRerender] = useState(false);
+  const [isFiltersChange, setIsFiltersChange] = useState(true);
 
   const [data, setData] = useState<VacancyResponseProps>({
     objects: [],
     total: 0,
   });
+
+  console.log(props.searchValue, activePage);
 
   useEffect(() => {
     setIsRerender(true);
@@ -37,8 +40,12 @@ export default function Vacancies(props: VacanciesProps) {
       .then((res) => setData(res.data))
       .then(() => setIsRerender(false))
       .catch((err) => console.log(err));
+  }, [activePage, isFiltersChange]);
+
+  useEffect(() => {
+    setPage(1);
+    setIsFiltersChange((v) => !v);
   }, [
-    activePage,
     props.filterValue.from,
     props.filterValue.industry,
     props.filterValue.to,
