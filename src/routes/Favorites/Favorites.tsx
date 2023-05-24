@@ -34,7 +34,7 @@ export default function Favorites() {
     )
       setPage((v) => v - 1);
     setFavorites(newArr);
-  }, [isFavoritesChange]);
+  }, [activePage, isFavoritesChange]);
 
   useEffect(() => {
     if (!(favorites.length == 0)) {
