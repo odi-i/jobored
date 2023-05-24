@@ -22,12 +22,18 @@ export default function Favorites() {
       : JSON.parse(localStorage.getItem(DATA.localeFavor) || '[]')
   );
 
+  console.log(activePage);
+
   useEffect(() => {
     const newArr =
       localStorage.getItem(DATA.localeFavor) == null
         ? []
         : JSON.parse(localStorage.getItem(DATA.localeFavor) || '[]');
-    if (newArr.length == favorites.length - 1 && newArr.length % 4 == 0)
+    if (
+      newArr.length == favorites.length - 1 &&
+      newArr.length % 4 == 0 &&
+      favorites.length <= activePage * 4
+    )
       setPage((v) => v - 1);
     setFavorites(newArr);
   }, [isFavoritesChange]);
