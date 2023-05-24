@@ -22,8 +22,6 @@ export default function Favorites() {
       : JSON.parse(localStorage.getItem(DATA.localeFavor) || '[]')
   );
 
-  console.log(activePage);
-
   useEffect(() => {
     const newArr =
       localStorage.getItem(DATA.localeFavor) == null

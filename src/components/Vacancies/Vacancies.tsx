@@ -18,8 +18,6 @@ export default function Vacancies(props: VacanciesProps) {
     total: 0,
   });
 
-  console.log(props.searchValue, activePage);
-
   useEffect(() => {
     setIsRerender(true);
     $api
