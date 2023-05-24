@@ -1,9 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import Layout from './routes/Layout/Layout';
 import Search from './routes/Search/Search';
-import axios from 'axios';
-import { useEffect } from 'react';
-import { API_PATH, DATA } from './utils/constValues';
 import FullVacancy from './components/FullVacancy/FullVacancy';
 import { SkeletonTheme } from 'react-loading-skeleton';
 import Favorites from './routes/Favorites/Favorites';

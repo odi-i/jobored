@@ -1,7 +1,7 @@
 import styles from './FullVacancy.module.scss';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { API_PATH, DATA } from '../../utils/constValues';
+import { API_PATH } from '../../utils/constValues';
 import { ObjectProps } from '../../utils/interfaces';
 import SingleVacancy from '../SingleVacancy/SingleVacancy';
 import VacancySkeleton from '../Skeleton/VacancySkeleton/VacancySkeleton';

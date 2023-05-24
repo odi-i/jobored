@@ -63,14 +63,14 @@ export default function Favorites() {
     <div className={styles.wrapper}>
       <div className={styles.cards}>
         {!isRerender && favorites.length && data.total == favorites.length
-          ? data.objects.map((item, index) => {
+          ? data.objects.map((_item, index) => {
               return (
                 <SingleVacancy key={index} objects={data.objects[index]} />
               );
             })
           : favorites
               .slice(4 * (activePage - 1), 4 * activePage)
-              .map((item, index) => {
+              .map((_item, index) => {
                 return <VacancySkeleton key={index} />;
               })}
         {!data.objects.length && !isRerender && (

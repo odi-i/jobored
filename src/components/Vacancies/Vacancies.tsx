@@ -48,10 +48,10 @@ export default function Vacancies(props: VacanciesProps) {
   return (
     <div className={styles.wrapper}>
       {!isRerender
-        ? data.objects.map((item, index) => {
+        ? data.objects.map((_item, index) => {
             return <SingleVacancy key={index} objects={data.objects[index]} />;
           })
-        : [0, 0, 0, 0].map((item, index) => {
+        : [0, 0, 0, 0].map((_item, index) => {
             return <VacancySkeleton key={index} />;
           })}
       {!data.objects.length && !isRerender && (
