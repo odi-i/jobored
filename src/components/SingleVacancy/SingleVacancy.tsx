@@ -18,7 +18,9 @@ export default function SingleVacancy({ objects }: { objects: ObjectProps }) {
   );
 
   const removeFavor = () => {
-    window.dispatchEvent(new Event('custom-storage-event-name'));
+    window.dispatchEvent(
+      new Event('custom-storage-event-name', { bubbles: true })
+    );
 
     const arr = JSON.parse(
       localStorage.getItem(DATA.localeFavor) || '[]'
@@ -28,7 +30,9 @@ export default function SingleVacancy({ objects }: { objects: ObjectProps }) {
   };
 
   const addFavor = () => {
-    window.dispatchEvent(new Event('custom-storage-event-name'));
+    window.dispatchEvent(
+      new Event('custom-storage-event-name', { bubbles: true })
+    );
 
     const arr = [
       ...JSON.parse(localStorage.getItem(DATA.localeFavor) || '[]'),
