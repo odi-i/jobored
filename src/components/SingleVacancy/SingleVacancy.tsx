@@ -1,5 +1,5 @@
 import styles from './SingleVacancy.module.scss';
-import { ObjectProps, SingleVacancyProps } from '../../utils/interfaces';
+import { SingleVacancyProps } from '../../utils/interfaces';
 import dot from '../../assets/dot.svg';
 import place from '../../assets/place.svg';
 import star from '../../assets/star.svg';
