@@ -46,3 +46,8 @@ export interface ObjectProps {
   currency: string;
   vacancyRichText: string | TrustedHTML;
 }
+
+export interface SingleVacancyProps {
+  objects: ObjectProps;
+  setIsHandleStar?: React.Dispatch<React.SetStateAction<boolean>>;
+}

@@ -10,73 +10,74 @@ import $api from '../../utils/http/axios';
 
 export default function Favorites() {
   const [activePage, setPage] = useState(1);
-  const [isFavoritesChange, setIsFavoritesChange] = useState(false);
+  const [isFavoritesChange, setIsFavoritesChange] = useState<boolean>(false);
   const [isRerender, setIsRerender] = useState(false);
   const [data, setData] = useState<VacancyResponseProps>({
     objects: [],
     total: 0,
   });
-  const [favorites, setFavorites] = useState<number[]>(
-    localStorage.getItem(DATA.localeFavor) == null
-      ? []
-      : JSON.parse(localStorage.getItem(DATA.localeFavor) || '[]')
-  );
 
   useEffect(() => {
-    const newArr =
+    const newFavor =
       localStorage.getItem(DATA.localeFavor) == null
         ? []
         : JSON.parse(localStorage.getItem(DATA.localeFavor) || '[]');
-    if (
-      newArr.length == favorites.length - 1 &&
-      newArr.length % 4 == 0 &&
-      favorites.length <= activePage * 4
-    )
+
+    if (data.objects.length && newFavor.length <= (activePage - 1) * 4)
       setPage((v) => v - 1);
-    setFavorites(newArr);
-  }, [activePage, isFavoritesChange]);
+
+    const newData = { ...data };
+    newData.objects = data.objects.filter((item) => newFavor.includes(item.id));
+    newData.total = newData.objects.length;
+
+    setData(newData);
+  }, [isFavoritesChange]);
 
   useEffect(() => {
-    if (!(favorites.length == 0)) {
-      setIsRerender(true);
+    setIsRerender(true);
+    const newFavor: number[] =
+      localStorage.getItem(DATA.localeFavor) == null
+        ? []
+        : JSON.parse(localStorage.getItem(DATA.localeFavor) || '[]');
+    if (newFavor.length) {
       let idArr = '';
-      favorites.forEach((item, index) => {
+      newFavor.forEach((item, index) => {
         if (index != 0) idArr += '&';
         idArr += `ids[]=${item}`;
       });
 
       $api
-        .get(
-          API_PATH.vacancies +
-            `?page=${activePage - 1}&count=4&published=1&` +
-            idArr
-        )
+        .get(API_PATH.vacancies + `?published=1&` + idArr)
         .then((res) => setData(res.data))
         .then(() => setIsRerender(false))
         .catch((err) => console.log(err));
     } else {
+      setIsRerender(false);
       setData({ objects: [], total: 0 });
     }
-  }, [activePage, favorites]);
-
-  window.addEventListener('custom-storage-event-name', () =>
-    setIsFavoritesChange((v) => !v)
-  );
+  }, []);
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.cards}>
-        {!isRerender && favorites.length && data.total == favorites.length
-          ? data.objects.map((_item, index) => {
-              return (
-                <SingleVacancy key={index} objects={data.objects[index]} />
-              );
-            })
-          : favorites
+        {!isRerender
+          ? data.objects
               .slice(4 * (activePage - 1), 4 * activePage)
-              .map((_item, index) => {
-                return <VacancySkeleton key={index} />;
-              })}
+              .map((item) => {
+                return (
+                  <SingleVacancy
+                    key={item.id}
+                    setIsHandleStar={setIsFavoritesChange}
+                    objects={item}
+                  />
+                );
+              })
+          : (data.objects.length
+              ? data.objects.slice(4 * (activePage - 1), 4 * activePage)
+              : [0, 0, 0, 0]
+            ).map((_item, index) => {
+              return <VacancySkeleton key={index} />;
+            })}
         {!data.objects.length && !isRerender && (
           <div className={styles.notFound}>
             <img src={notFound} />
@@ -88,7 +89,7 @@ export default function Favorites() {
         className={styles.pagination}
         value={activePage}
         onChange={(value) => setPage(value)}
-        total={data.total > 500 ? 125 : Math.ceil(data.total / 4)}
+        total={Math.ceil(data.total / 4)}
       />
     </div>
   );

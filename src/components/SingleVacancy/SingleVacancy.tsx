@@ -1,5 +1,5 @@
 import styles from './SingleVacancy.module.scss';
-import { ObjectProps } from '../../utils/interfaces';
+import { ObjectProps, SingleVacancyProps } from '../../utils/interfaces';
 import dot from '../../assets/dot.svg';
 import place from '../../assets/place.svg';
 import star from '../../assets/star.svg';
@@ -9,7 +9,10 @@ import { useState } from 'react';
 import { DATA } from '../../utils/constValues';
 import { Link } from 'react-router-dom';
 
-export default function SingleVacancy({ objects }: { objects: ObjectProps }) {
+export default function SingleVacancy({
+  objects,
+  setIsHandleStar,
+}: SingleVacancyProps) {
   const [isHover, setIsHover] = useState(false);
   const [favorites, setFavorites] = useState<number[]>(
     localStorage.getItem(DATA.localeFavor) == null
@@ -18,28 +21,22 @@ export default function SingleVacancy({ objects }: { objects: ObjectProps }) {
   );
 
   const removeFavor = () => {
-    window.dispatchEvent(
-      new Event('custom-storage-event-name', { bubbles: true })
-    );
-
     const arr = JSON.parse(
       localStorage.getItem(DATA.localeFavor) || '[]'
     ).filter((item: number) => item !== objects.id);
     setFavorites(arr);
     localStorage.setItem(DATA.localeFavor, JSON.stringify(arr));
+    if (setIsHandleStar) setIsHandleStar((v) => !v);
   };
 
   const addFavor = () => {
-    window.dispatchEvent(
-      new Event('custom-storage-event-name', { bubbles: true })
-    );
-
     const arr = [
       ...JSON.parse(localStorage.getItem(DATA.localeFavor) || '[]'),
       objects.id,
     ];
     setFavorites(arr);
     localStorage.setItem(DATA.localeFavor, JSON.stringify(arr));
+    if (setIsHandleStar) setIsHandleStar((v) => !v);
   };
 
   const displayMoney = () => {
