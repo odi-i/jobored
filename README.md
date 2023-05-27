@@ -41,6 +41,5 @@ To check this project visit [https://papaya-entremet-3046cd.netlify.app](https:/
 
 - Clone this repository
 - Run `cd jobored`
-- Run `git checkout develop`
 - Run `npm install` in cloned folder
 - Run `npm run dev` to start project locally
