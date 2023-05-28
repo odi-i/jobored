@@ -15,6 +15,10 @@
     width: calc(100% - 100px);
   }
 
+  @include m.resolution(mobile) {
+    padding: 20px 0 20px;
+  }
+
   .cards {
     display: flex;
     flex-direction: column;
@@ -33,7 +37,22 @@
     align-items: center;
     gap: 32px;
 
+    @include m.resolution(tablet) {
+      margin: 50px auto;
+    }
+
+    @include m.resolution(mobile) {
+      margin: 20px auto;
+    }
+
+    .img {
+      @include m.resolution(mobile) {
+        width: 200px;
+      }
+    }
+
     .text {
+      text-align: center;
       font-weight: 700;
       font-size: 24px;
       line-height: 29px;

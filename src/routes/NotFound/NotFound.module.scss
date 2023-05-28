@@ -10,7 +10,7 @@
   @include m.resolution(tablet) {
     margin: 50px auto;
   }
-  @include m.resolution(tablet) {
+  @include m.resolution(mobile) {
     margin: 20px auto;
   }
 
