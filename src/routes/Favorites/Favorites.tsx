@@ -80,7 +80,7 @@ export default function Favorites() {
             })}
         {!data.objects.length && !isRerender && (
           <div className={styles.notFound}>
-            <img src={notFound} />
+            <img className={styles.img} src={notFound} />
             <div className={styles.text}>Упс, здесь еще ничего нет!</div>
           </div>
         )}

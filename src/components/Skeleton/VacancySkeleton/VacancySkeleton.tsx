@@ -13,7 +13,7 @@ export default function VacancySkeleton() {
           <div className={styles.money}>
             <Skeleton width={150} />
           </div>
-          <Skeleton circle width={10} height={10} />
+          <Skeleton className={styles.circle} circle width={10} height={10} />
           <div className={styles.type_of_work}>
             <Skeleton width={150} />
           </div>

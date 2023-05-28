@@ -1,57 +1,103 @@
 header {
-   width: 100%;
-   height: 84px;
-   background: v.$white;
+  width: 100%;
+  height: 84px;
+  background: v.$white;
 }
 
 .wrapper {
-   margin: 0 auto;
-   width: 1116px;
-   height: 100%;
-   display: flex;
-   gap: 280px;
-   align-items: center;
+  margin: 0 auto;
+  width: 1116px;
+  height: 100%;
+  display: flex;
+  gap: 280px;
+  align-items: center;
 
-   .logo {
+  @include m.resolution(laptop) {
+    width: 773px;
+    justify-content: space-between;
+    gap: 0;
+  }
+
+  @include m.resolution(tablet) {
+    width: calc(100% - 100px);
+    justify-content: space-between;
+    gap: 0;
+    padding: 0 50px;
+  }
+
+  .logo {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    text-decoration: none;
+
+    .text {
+      font-family: 'Poppins';
+      font-style: normal;
+      font-weight: 600;
+      font-size: 24px;
+      line-height: 36px;
+      letter-spacing: -0.02em;
+      color: v.$black;
+    }
+  }
+
+  .burger {
+    display: none;
+    z-index: 10;
+
+    @include m.resolution(tablet) {
+      display: block;
+    }
+  }
+
+  .menu {
+    display: flex;
+    gap: 60px;
+    align-items: center;
+
+    &_active {
+      transition: all ease-in 2s;
+      top: 15px;
+      right: 30px;
+      z-index: 9;
+      padding: 60px 30px 40px 30px;
+      gap: 35px;
+      position: absolute;
       display: flex;
-      gap: 12px;
-      align-items: center;
+      flex-direction: column;
+      align-items: end;
+      background: v.$white;
+      border-radius: 10px;
+      box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px v.$grey-300;
+    }
+
+    @include m.resolution(tablet) {
+      display: none;
+
+      &_active {
+        display: flex;
+      }
+    }
+
+    .item {
       text-decoration: none;
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 20px;
+      color: v.$black;
+    }
 
-      .text {
-         font-family: "Poppins";
-         font-style: normal;
-         font-weight: 600;
-         font-size: 24px;
-         line-height: 36px;
-         letter-spacing: -0.02em;
-         color: v.$black;
-      }
-   }
-
-   .menu {
-      display: flex;
-      gap: 60px;
-      align-items: center;
-
-      .item {
-         text-decoration: none;
-         font-family: "Inter";
-         font-style: normal;
-         font-weight: 500;
-         font-size: 16px;
-         line-height: 20px;
-         color: v.$black;
-      }
-
-      .active {
-         text-decoration: none;
-         font-family: "Inter";
-         font-style: normal;
-         font-size: 16px;
-         line-height: 20px;
-         font-weight: 500;
-         color: v.$blue-500;
-      }
-   }
+    .active {
+      text-decoration: none;
+      font-family: 'Inter';
+      font-style: normal;
+      font-size: 16px;
+      line-height: 20px;
+      font-weight: 500;
+      color: v.$blue-500;
+    }
+  }
 }
