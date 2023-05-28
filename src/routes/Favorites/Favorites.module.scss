@@ -1,32 +1,42 @@
 .wrapper {
-   display: flex;
-   flex-direction: column;
-   width: 773px;
-   margin: 0 auto;
-   padding: 40px 0 44px;
+  display: flex;
+  flex-direction: column;
+  width: 773px;
+  margin: 0 auto;
+  padding: 40px 0 44px;
 
-   .cards {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 16px;
-   }
+  @include m.resolution(laptop) {
+    width: 773px;
+    flex-direction: column;
+  }
 
-   .pagination {
-      align-self: center;
-      margin: 104px 0 0;
-   }
+  @include m.resolution(tablet) {
+    margin: 40px 50px 0 50px;
+    width: calc(100% - 100px);
+  }
 
-   .notFound {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 32px;
+  .cards {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
 
-      .text {
-         font-weight: 700;
-         font-size: 24px;
-         line-height: 29px;
-      }
-   }
+  .pagination {
+    align-self: center;
+    margin: 104px 0 0;
+  }
+
+  .notFound {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+
+    .text {
+      font-weight: 700;
+      font-size: 24px;
+      line-height: 29px;
+    }
+  }
 }

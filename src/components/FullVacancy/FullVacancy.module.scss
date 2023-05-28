@@ -1,15 +1,33 @@
 .wrapper {
-   display: flex;
-   flex-direction: column;
-   padding: 40px 0 51px;
-   margin: 0 auto;
-   width: 773px;
-   gap: 20px;
+  display: flex;
+  flex-direction: column;
+  padding: 40px 0 51px;
+  margin: 0 auto;
+  width: 773px;
+  gap: 20px;
 
-   .text {
-      padding: 24px;
-      background: v.$white;
-      border: 1px solid v.$grey-200;
-      border-radius: 12px;
-   }
+  @include m.resolution(laptop) {
+    width: 773px;
+    flex-direction: column;
+  }
+
+  @include m.resolution(tablet) {
+    margin: 40px 50px 0 50px;
+    width: calc(100% - 100px);
+  }
+
+  .text {
+    padding: 24px;
+    background: v.$white;
+    border: 1px solid v.$grey-200;
+    border-radius: 12px;
+
+    @include m.resolution(mobile) {
+      padding: 0;
+
+      ul {
+        padding-left: 20px;
+      }
+    }
+  }
 }

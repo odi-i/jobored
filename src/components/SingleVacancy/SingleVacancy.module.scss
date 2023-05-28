@@ -1,62 +1,103 @@
 .wrapper {
-   display: flex;
-   justify-content: space-between;
-   width: 723px;
-   background: v.$white;
-   border: 1px solid v.$grey-200;
-   border-radius: 12px;
-   padding: 24px;
+  display: flex;
+  justify-content: space-between;
+  width: 723px;
+  background: v.$white;
+  border: 1px solid v.$grey-200;
+  border-radius: 12px;
+  padding: 24px;
 
-   .main {
+  @include m.resolution(tablet) {
+    width: calc(100% - 50px);
+  }
+
+  .main {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    .profession {
+      font-weight: 600;
+      font-size: 20px;
+      line-height: 24px;
+      color: v.$blue-500;
+      text-decoration: none;
+
+      @include m.resolution(mobile) {
+        font-size: 17px;
+        line-height: 20px;
+      }
+    }
+
+    .conditions {
       display: flex;
-      flex-direction: column;
+      align-items: center;
       gap: 12px;
 
-      .profession {
-         font-weight: 600;
-         font-size: 20px;
-         line-height: 24px;
-         color: v.$blue-500;
-         text-decoration: none;
+      .money {
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 20px;
+        color: v.$black;
+
+        @include m.resolution(mobile) {
+          font-size: 15px;
+          line-height: 15px;
+        }
       }
 
-      .conditions {
-         display: flex;
-         align-items: center;
-         gap: 12px;
-
-         .money {
-            font-weight: 600;
-            font-size: 16px;
-            line-height: 20px;
-            color: v.$black;
-         }
-
-         .type_of_work {
-            font-weight: 400;
-            font-size: 16px;
-            line-height: 20px;
-            color: v.$black;
-         }
+      .img {
+        @include m.resolution(small-mobile) {
+          display: none;
+        }
       }
 
-      .place {
-         display: flex;
-         align-items: center;
-         gap: 8px;
+      .type_of_work {
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 20px;
+        color: v.$black;
 
-         .town {
-            font-weight: 400;
-            font-size: 16px;
-            line-height: 19px;
-            color: v.$black;
-         }
+        @include m.resolution(mobile) {
+          font-size: 15px;
+          line-height: 15px;
+        }
+
+        @include m.resolution(small-mobile) {
+          display: none;
+        }
       }
-   }
+    }
 
-   .star {
-      height: 25px;
-      align-items: start;
-      cursor: pointer;
-   }
+    .place {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      .town {
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 19px;
+        color: v.$black;
+
+        @include m.resolution(mobile) {
+          font-size: 15px;
+          line-height: 15px;
+        }
+      }
+    }
+  }
+
+  .star {
+    height: 25px;
+    align-items: start;
+    cursor: pointer;
+
+    @include m.resolution(tablet) {
+      margin: 0 0 0 15px;
+    }
+    @include m.resolution(mobile) {
+      height: 20px;
+    }
+  }
 }

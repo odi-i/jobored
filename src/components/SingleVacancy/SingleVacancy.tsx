@@ -72,7 +72,7 @@ export default function SingleVacancy({
         </Link>
         <div className={styles.conditions}>
           <div className={styles.money}>{displayMoney()}</div>
-          <img src={dot} />
+          <img src={dot} className={styles.img} />
           <div className={styles.type_of_work}>
             {objects.type_of_work?.title == undefined
               ? ''
