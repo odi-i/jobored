@@ -86,7 +86,11 @@ export default function Filters(props: FiltersProps) {
             onClick={handleButton}
           >
             <div className={handleText()}>Сбросить все</div>
-            <img src={changeImg()} className={styles.img} />
+            <img
+              src={changeImg()}
+              alt={'Сбросить Фильтры'}
+              className={styles.img}
+            />
           </div>
         </div>
         <div className={styles.job}>
@@ -98,9 +102,12 @@ export default function Filters(props: FiltersProps) {
             {...form.getInputProps('industry')}
             rightSection={
               isOpen == false ? (
-                <img src={dropDown} />
+                <img alt={'Открыть каталог отраслей'} src={dropDown} />
               ) : (
-                <img src={dropDownActive} />
+                <img
+                  alt={'Закрыть каталог отраслей'}
+                  src={dropDownActive}
+                />
               )
             }
             size="md"

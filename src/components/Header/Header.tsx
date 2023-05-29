@@ -19,7 +19,7 @@ export default function Header() {
       <header>
         <div className={styles.wrapper}>
           <NavLink to={'/'} className={styles.logo}>
-            <img src={logo} />
+            <img alt={'Логотип'} src={logo} />
             <h1 className={styles.text}>Jobored</h1>
           </NavLink>
           <Burger
