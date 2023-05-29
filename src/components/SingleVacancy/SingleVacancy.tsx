@@ -72,7 +72,7 @@ export default function SingleVacancy({
         </Link>
         <div className={styles.conditions}>
           <div className={styles.money}>{displayMoney()}</div>
-          <img src={dot} className={styles.img} />
+          <img src={dot} alt={'Иконка разделения'} className={styles.img} />
           <div className={styles.type_of_work}>
             {objects.type_of_work?.title == undefined
               ? ''
@@ -80,13 +80,14 @@ export default function SingleVacancy({
           </div>
         </div>
         <div className={styles.place}>
-          <img src={place} />
+          <img alt={'Иконка города'} src={place} />
           <div className={styles.town}>
             {objects.town?.title == undefined ? '' : objects.town.title}
           </div>
         </div>
       </div>
       <img
+        alt={'Добавить вакансию в избранное'}
         data-elem={`vacancy-${objects.id}-shortlist-button`}
         onMouseEnter={() => setIsHover(true)}
         onMouseLeave={() => setIsHover(false)}

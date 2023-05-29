@@ -21,7 +21,7 @@ export default function SearchBar(props: SearchBarProps) {
       <Input
         className={styles.input}
         data-elem="search-input"
-        icon={<img className={styles.img} src={searchIcon} />}
+        icon={<img alt={'Иконка строки поиска'} className={styles.img} src={searchIcon} />}
         placeholder="Введите название вакансии"
         radius="md"
         rightSectionWidth={'107px'}

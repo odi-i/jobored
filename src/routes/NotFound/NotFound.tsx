@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 export default function NotFound() {
   return (
     <div className={styles.wrapper}>
-      <img src={notFound} />
+      <img alt={'Не найдено'} src={notFound} />
       <div className={styles.text}>Упс, здесь еще ничего нет!</div>
       <Link to={'/'} className={styles.button}>
         Поиск Вакансий
